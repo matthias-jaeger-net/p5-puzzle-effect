@@ -1,8 +1,13 @@
 # p5-puzzle-effect
 Research on how to 'puzzle' an image inside of a sketch 
 
-
+### Turn any sketch
 ![puzzle](input-puzzle.jpg)
+
+### Into a puzzeld up sketch
+![puzzle](input-to-puzzle.jpg)
+
+
 
 
 ### I include the script in ```index.html```
