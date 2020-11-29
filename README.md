@@ -1,5 +1,47 @@
 # p5-puzzle-effect
 
+### Download the ```effects.js``` file and add it to your sketch
+```javascript
+/**
+ * Returns a puzzled version of the given image
+ * 
+ * @requires {p5} Global mode 
+ * @param {p5.Graphics, p5.Image} buffer A given buffer or image
+ * @param {number} res The sidelength of a puzzle piece 
+ * @return {p5.Graphics} A new buffer with the finished puzzle
+ */
+function puzzle(buffer, res) {
+  const gfx = createGraphics(buffer.width, buffer.height);
+  const bufferPixels = buffer.get();
+  const pieces = [];
+  const indices = [];
+  const sclX = img.width / res;
+  const sclY = img.height / res;
+  let index = 0;
+  for (let x = 0; x < buffer.width; x += sclX) {
+    for (let y = 0; y < buffer.height; y += sclY) {
+      pieces.push(bufferPixels.get(x, y, sclX, sclY));
+      indices.push(index);
+      index += 1;
+    }
+  }
+  for (let x = 0; x < buffer.width; x += sclX) {
+    for (let y = 0; y < buffer.height; y += sclY) {
+      let index = random(indices);
+      gfx.image(pieces[index], x, y);
+      // Remove index from the options to choose from
+      indices.splice(index, 1);
+    }
+  }
+  return gfx;
+}
+```
+###  Then I include eeffects my script in ```index.html```
+```html
+  <script src="effects.js" defer></script>
+  <script src="sketch.js" defer></script>
+```
+
 ### Turn any of your static sketches ...
 ![puzzle](input-puzzle.jpg)
 
@@ -60,55 +102,6 @@ function setup() {
 }
 ```
 
-###  Then I include eeffects my script in ```index.html```
-```html
-  <script src="effects.js" defer></script>
-  <script src="sketch.js" defer></script>
-```
-
-### Download or copy ```effects.js```
-```javascript
-function puzzle(buffer, scl) {
-  // Set a new graphics buffer with the same dimensions
-  const gfx = createGraphics(buffer.width, buffer.height);
-  
-  // Copy buffer to a p5.Image, it might be a a p5.Graphic  
-  const bufferPixels = buffer.get();
-  
-  // All the pieces of the puzzle, each one is an image
-  const pieces = [];
-  
-  // Used to remove selected indices, when piecing the puzzle
-  const indices = [];
-  let index = 0;
-  
-  // Split up the input image in a grid of smaller pieces
-  for (let x = 0; x < buffer.width; x += scl) {
-    for (let y = 0; y < buffer.height; y += scl) {
-      // Slice up the image using
-      pieces.push(bufferPixels.get(x, y, scl, scl));
-      // Mark the index
-      indices.push(index);
-      index += 1;
-    }
-  }
-  
-  // Same loop as above, but this time we puzzle the images
-  for (let x = 0; x < buffer.width; x += scl) {
-    for (let y = 0; y < buffer.height; y += scl) {
-      // Each cell: try a random index
-      let index = floor(random(pieces.length));
-      // Render the image in the buffer at current position
-      gfx.image(pieces[index], x, y);
-      // Remove index from the options to choose from
-      pieces.splice(index, 1);
-    }
-  }
-  
-  // I assume we are done
-  return gfx;
-}
-```
 
 ### Use it in your own ```sketch.js```
 ```javascript
