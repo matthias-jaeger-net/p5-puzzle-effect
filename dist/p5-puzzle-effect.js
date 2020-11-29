@@ -9,8 +9,8 @@
 function puzzle(buffer, res) {
   const gfx = createGraphics(buffer.width, buffer.height);
   const bufferPixels = buffer.get();
-  const sclX = img.width / res;
-  const sclY = img.height / res;
+  const sclX = buffer.width / res;
+  const sclY = buffer.height / res;
   const pieces = [];
   const indices = [];
   const newIndices = [];
