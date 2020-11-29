@@ -1,12 +1,16 @@
 # p5-puzzle-effect
 Research on how to 'puzzle' an image inside of a sketch 
 
+
+![puzzle](input-puzzle.jpg)
+
+
 ### I include the script in ```index.html```
 ```html
   <script src="effects.min.js" defer></script>
   <script src="sketch.js" defer></script>
 ```
-## ```effects.js```
+### ```effects.js```
 ```javascript
 function puzzle(buffer, scl) {
   // Set a new graphics buffer with the same dimensions
